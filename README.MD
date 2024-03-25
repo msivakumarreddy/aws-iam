@@ -1,6 +1,6 @@
 # Understanding AWS IAM
 
-**Announcement:**
+### Announcement:
 Upcoming DevOps with AWS batch: 31-MAR-2024 <br/>
 Demo: 31-MAR-2024 10:30AM IST <br/>
 Classes: 01-APR-2024 Onwards <br/>
