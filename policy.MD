@@ -78,5 +78,75 @@ Managed policies can be attached to User, Groups and Roles.
     * Created and managed by us.
     * We can edit or delete them.
 
+### Attribute based policy
+
+We can attach this policy to DBAdmin team which is handling Production DB.
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                    "rds:DescribeDBInstances",
+                    "rds:DescribeDBClusters",
+                    "rds:DescribeGlobalClusters"
+            ],
+            "Resource": "*"
+        },
+        
+        {
+            "Effect": "Allow",
+            "Action": [
+                "rds:RebootDBInstance",
+                "rds:StartDBInstance",
+                "rds:StopDBInstance"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:PrincipalTag/Team": "DBAdmins",
+                    "rds:db-tag/Environment": "prod"
+                }
+            }
+        }
+    ]
+}
+```
+
+We can attach this policy to Development team which is handling Development DB.
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                    "rds:DescribeDBInstances",
+                    "rds:DescribeDBClusters",
+                    "rds:DescribeGlobalClusters"
+            ],
+            "Resource": "*"
+        },
+        
+        {
+            "Effect": "Allow",
+            "Action": [
+                "rds:RebootDBInstance",
+                "rds:StartDBInstance",
+                "rds:StopDBInstance"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:PrincipalTag/Team": "Development",
+                    "rds:db-tag/Environment": "dev"
+                }
+            }
+        }
+    ]
+}
+```
+
 
 

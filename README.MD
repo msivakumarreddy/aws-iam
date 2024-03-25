@@ -1,5 +1,14 @@
 # Understanding AWS IAM
 
+**Announcement:**
+Upcoming DevOps with AWS batch: 31-MAR-2024
+Demo: 31-MAR-2024 10:30AM IST
+Classes: 01-APR-2024 Onwards
+Timings: 07:15-08:45AM IST
+Duration: 120Hours MON-FRI
+**Register in: https://www.joindevops**
+**Language: Telugu**
+
 Every system typically incorporates mechanisms for **authentication** and **authorization**:
 
 - **Authentication** verifies if an individual or entity is part of the system.
