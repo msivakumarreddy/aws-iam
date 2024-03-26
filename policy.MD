@@ -26,8 +26,11 @@ Below policy can grant all actions on EC2 resources in us-east-1 region
 ```
 
 ### Resource based policy
-If a policy is attached to resource like S3, DynamoDB, etc. are called resource based policy.
-**NOTE:** There is an extra item **Principal** for resource based policy apart from identity based policy.
+If a policy is attached to resource like S3, DynamoDB, etc. are called resource based policy. 
+
+**NOTE:** 
+* There is an extra item **Principal** for resource based policy apart from identity based policy.
+* You can't use IAM group as principal in resource policy.
 
 Refer below documentation to check the services supported by Resource based policy
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html
@@ -79,6 +82,23 @@ Managed policies can be attached to User, Groups and Roles.
     * We can edit or delete them.
 
 ### Attribute based policy
+
+**RBAC:** Role based access control is applying policies based on roles and responsibilities i.e applying to groups.
+
+**ABAC:**
+
+* Its a strategy for managing access permissions that defines access rights based on attributes (tags).
+* Attributes/tags attached to resources or entities.
+* Policies are then defined to allow or deny actions based on the matching of these tags.
+* This method enables us to scale permissions management in a more granular and efficient way, especially in environments with a large number of resources and users.
+
+**Use case:**
+
+* There are 2 teams. Development and DBAdmins.
+* There are 2DB. One belongs to DEV team and other belongs to PROD team.
+* Create and test policies in the below way.
+    * DEV team can only stop, start and restart their DB, but they can't do with PROD DB.
+    * DBAdmin team can only stop, start and restart PROD DB, but they can't do with DEV DB.
 
 We can attach this policy to DBAdmin team which is handling Production DB.
 ```
@@ -148,5 +168,13 @@ We can attach this policy to Development team which is handling Development DB.
 }
 ```
 
+### Real Interview Question
+IAM & S3 Question I  had faced in interview... could you please answer it?
 
+IAM-user01 has Full access to all S3 buckets 
+but in bucket01 policy there is explicit deny to use01
+
+
+IAM-user02 has no S3 access explicitly deny to buckect-02
+but in bucket policy user02 has full access
 
