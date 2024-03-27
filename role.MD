@@ -47,3 +47,62 @@ Our AMI Details
     ]
 }
 ```
+
+# How a user can assume Role.
+
+What are the advantages of user assuming role instead of directly giving permissions to him?
+
+* When users assume role, it will give temporary credentials with time out of 15min, these keys will be auto rotated by AWS.
+* Direct permissions keys will have long term validity and manual rotation.
+* Cross account access can be easily managed by roles.
+* When a user assumes a role, the action is logged in AWS CloudTrail, providing clear audit.
+
+# Use case-3
+* Create a role that have the permission of full EC2 access in us-east-1 region.
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [ 
+        {
+            "Effect": "Allow", 
+            "Action": "ec2:*", 
+            "Resource": "*", 
+            "Condition": { 
+                "StringEquals": {
+                    "ec2:Region": "us-east-1"
+                }
+            }
+        }
+    ]
+}
+```
+* A user joindevops.com can have trust relationship with it.
+* User joindevops.com should have a permission to assume the role.
+* User has to run a sts command to assume the role.
+```
+aws sts assume-role \
+  --role-arn "arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME" \
+  --role-session-name SESSION_NAME
+```
+* export the keys and token came as out of the previous command.
+```
+export AWS_ACCESS_KEY_ID="AccessKeyId"
+export AWS_SECRET_ACCESS_KEY="SecretAccessKey"
+export AWS_SESSION_TOKEN="SessionToken"
+```
+
+# Use case-4
+
+How to give cross account access for a user?
+
+* There are 2 accounts.
+* Account-1 belongs to our company. Account-2 belongs to third party.
+* There is a bucket in our company account for which third party user needs access.
+
+How to achieve this?
+* Create a Role in our company account.
+* This role should have permissions to access the bucket.
+* This role should have trust relationship with the user in third party account.
+* User in third party account should have a permission to assume role in our company account.
+
+![IAM Overview](images/cross-account.jpg)
